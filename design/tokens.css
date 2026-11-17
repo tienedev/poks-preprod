@@ -1,0 +1,152 @@
+/* =====================================================================================
+   POKS — design tokens (source unique). Thème sombre uniquement : on joue de nuit,
+   sur un écran de téléphone, et le feutre/les cartes ressortent mieux sur l'encre.
+   Toute valeur visuelle du site passe par ces variables. Aucune couleur en dur ailleurs
+   (sauf illustrations : cartes, feutre, jetons).
+   ===================================================================================== */
+:root {
+  color-scheme: dark;
+
+  /* ---------- couleur : encres (fonds, du plus profond au plus élevé) ---------- */
+  --ink-0: #05070a;   /* fond de page, derrière tout */
+  --ink-1: #090c11;   /* fond de l'application */
+  --ink-2: #0e131a;   /* surface 1 : cartes, panneaux */
+  --ink-3: #131922;   /* surface 2 : champs, lignes de liste */
+  --ink-4: #19212c;   /* surface 3 : survol, éléments surélevés */
+  --ink-5: #212b38;   /* surface 4 : pressé, sélection neutre */
+
+  /* traits (alpha, pour rester justes sur toutes les surfaces) */
+  --line-1: rgba(255, 255, 255, .055);
+  --line-2: rgba(255, 255, 255, .09);
+  --line-3: rgba(255, 255, 255, .15);
+  --line-4: rgba(255, 255, 255, .24);
+
+  /* texte — contraste AA vérifié sur --ink-2 : t1 16.8:1, t2 8.4:1, t3 5.0:1 */
+  --text-1: #eef2f7;
+  --text-2: #a9b3c1;
+  --text-3: #7f8a9a;
+  --text-inv: #061512;
+
+  /* marque : le teal du K Kaspa (#70C7BA) */
+  --brand-200: #c5efe8;
+  --brand-300: #9be0d5;
+  --brand-400: #70c7ba;  /* = couleur du logo */
+  --brand-500: #4fb0a2;
+  --brand-600: #338a7e;
+  --brand-700: #1d5a52;
+  --brand-900: #0b2622;
+  --brand-ink: #04201c;   /* texte posé sur la marque */
+  --brand-glow: rgba(112, 199, 186, .28);
+  --brand-wash: rgba(112, 199, 186, .08);
+
+  /* or : l'argent, les gains, les prix */
+  --gold-300: #ffe08a;
+  --gold-400: #f4c752;
+  --gold-500: #d9a632;
+  --gold-ink: #2a1d03;
+  --gold-wash: rgba(244, 199, 82, .10);
+
+  /* sémantique */
+  --success: #3fd38f;  --success-wash: rgba(63, 211, 143, .12);
+  --danger:  #f26473;  --danger-wash:  rgba(242, 100, 115, .12);
+  --warning: #f5b84a;  --warning-wash: rgba(245, 184, 74, .12);
+  --info:    #74a9ff;  --info-wash:    rgba(116, 169, 255, .12);
+
+  /* jeu */
+  --felt-1: #138a68; --felt-2: #0c6149; --felt-3: #06352a;
+  --suit-black: #14171c; --suit-red: #d92f3b; --suit-blue: #1d6fe0; --suit-green: #12924a;
+
+  /* ---------- typographie ---------- */
+  --font-sans: "Inter", "InterVariable", ui-sans-serif, system-ui, -apple-system, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-display: "Inter Display", "Inter", ui-sans-serif, system-ui, -apple-system, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+
+  --fs-2xs: 11px;
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-md: 14px;   /* corps desktop */
+  --fs-base: 15px; /* corps mobile */
+  --fs-lg: 17px;
+  --fs-xl: 20px;
+  --fs-2xl: 24px;
+  --fs-3xl: 30px;
+  --fs-4xl: 38px;
+  --fs-hero: clamp(36px, 7.2vw, 68px);
+
+  --lh-tight: 1.08;
+  --lh-snug: 1.25;
+  --lh-body: 1.5;
+
+  --fw-regular: 450;
+  --fw-medium: 560;
+  --fw-semibold: 650;
+  --fw-bold: 750;
+  --fw-black: 850;
+
+  --tracking-tight: -.022em;
+  --tracking-display: -.026em;
+  --tracking-caps: .08em;
+
+  /* ---------- espacement (grille de 4) ---------- */
+  --s-0: 2px;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-7: 28px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+  --gutter: 16px;          /* marge latérale mobile */
+  --maxw: 1280px;          /* largeur max du contenu */
+  --tap: 44px;             /* cible tactile minimale */
+
+  /* ---------- rayons ---------- */
+  --r-xs: 6px;
+  --r-sm: 9px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+  --r-2xl: 28px;
+  --r-pill: 999px;
+
+  /* ---------- élévation ---------- */
+  --e-0: inset 0 1px 0 rgba(255, 255, 255, .035);
+  --e-1: inset 0 1px 0 rgba(255, 255, 255, .04), 0 1px 2px rgba(0, 0, 0, .35);
+  --e-2: inset 0 1px 0 rgba(255, 255, 255, .05), 0 8px 24px -8px rgba(0, 0, 0, .55);
+  --e-3: inset 0 1px 0 rgba(255, 255, 255, .06), 0 24px 60px -12px rgba(0, 0, 0, .7);
+  --e-4: inset 0 1px 0 rgba(255, 255, 255, .07), 0 40px 100px -20px rgba(0, 0, 0, .85);
+  --e-brand: 0 10px 30px -8px var(--brand-glow);
+  --ring: 0 0 0 2px var(--ink-1), 0 0 0 4px var(--brand-400);
+
+  /* ---------- mouvement ---------- */
+  --dur-1: 120ms;
+  --dur-2: 200ms;
+  --dur-3: 320ms;
+  --dur-4: 520ms;
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --ease-spring: cubic-bezier(.34, 1.4, .64, 1);
+
+  /* ---------- couches ---------- */
+  --z-base: 1;
+  --z-sticky: 30;
+  --z-nav: 40;
+  --z-sheet: 60;
+  --z-modal: 70;
+  --z-toast: 90;
+  --z-boot: 100;
+
+  /* ---------- zones sûres (encoche, barre d'accueil iOS) ---------- */
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+}
+
+@media (min-width: 768px) { :root { --gutter: 24px; } }
+@media (min-width: 1200px) { :root { --gutter: 32px; } }
+@media (prefers-reduced-motion: reduce) { :root { --dur-1: 0ms; --dur-2: 0ms; --dur-3: 0ms; --dur-4: 0ms; } }

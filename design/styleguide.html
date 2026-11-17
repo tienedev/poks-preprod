@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Poks — Design system</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css">
+<style>
+  body { padding-bottom: 80px; }
+  .sg { max-width: 1120px; margin: 0 auto; padding: 0 var(--gutter); }
+  .sg-hero { padding: 48px 0 24px; border-bottom: 1px solid var(--line-1); margin-bottom: 8px; }
+  .sg-hero h1 { font-size: var(--fs-4xl); letter-spacing: var(--tracking-display); }
+  .sg-hero p { color: var(--text-2); max-width: 640px; margin-top: 8px; }
+  .sg-nav { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--ink-1) 85%, transparent); backdrop-filter: blur(12px); padding: 10px 0; border-bottom: 1px solid var(--line-1); }
+  .sg-nav .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .sg-nav a { text-decoration: none; }
+  section.sgs { padding: 40px 0 8px; scroll-margin-top: 60px; }
+  section.sgs > h2 { font-size: var(--fs-2xl); margin-bottom: 4px; }
+  section.sgs > p.d { color: var(--text-3); margin-bottom: 20px; font-size: var(--fs-sm); }
+  h3.sub { font-size: var(--fs-sm); color: var(--text-3); text-transform: uppercase; letter-spacing: var(--tracking-caps); font-weight: var(--fw-semibold); margin: 24px 0 10px; }
+  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .grid-2 { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+  .sw { border-radius: var(--r-md); border: 1px solid var(--line-2); overflow: hidden; background: var(--ink-2); }
+  .sw i { display: block; height: 64px; }
+  .sw div { padding: 8px 10px; font-size: 12px; } .sw b { display: block; font-size: 12.5px; } .sw code { color: var(--text-3); font-size: 11px; }
+  .demo { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .tok { display: flex; align-items: center; gap: 14px; padding: 8px 0; border-bottom: 1px solid var(--line-1); font-size: 13px; }
+  .tok code { width: 120px; color: var(--text-3); font-size: 12px; flex: none; }
+  .bar { height: 12px; background: var(--brand-400); border-radius: 3px; }
+  .rad { width: 64px; height: 64px; background: var(--ink-4); border: 1px solid var(--line-3); }
+  .elev { height: 90px; border-radius: var(--r-lg); background: var(--ink-3); display: grid; place-items: center; font-size: 12px; color: var(--text-2); }
+  .mot { width: 44px; height: 44px; border-radius: 12px; background: var(--brand-400); transition: transform var(--dur-4) var(--e, var(--ease-out)); }
+  .motrow:hover .mot { transform: translateX(160px); }
+  code.inline { font-family: var(--font-mono); font-size: 12px; background: var(--ink-3); padding: 2px 6px; border-radius: 6px; color: var(--brand-200); }
+  [data-logo] svg { height: 28px; width: auto; color: var(--text-1); }
+</style>
+</head>
+<body>
+<header class="sg sg-hero">
+  <span class="badge badge-brand"><span class="dot"></span>Design system v1</span>
+  <h1 style="margin-top:14px">Poks — système de design</h1>
+  <p>La source unique des décisions visuelles du site : <code class="inline">tokens.css</code> (variables) et <code class="inline">components.css</code> (briques). Sombre, mobile d'abord, AA, mouvement réduit respecté. Cette page charge exactement ces deux fichiers.</p>
+</header>
+<nav class="sg-nav"><div class="sg chips">
+  <a class="chip" href="#couleurs">Couleurs</a><a class="chip" href="#type">Typographie</a><a class="chip" href="#espace">Espacement</a><a class="chip" href="#rayons">Rayons &amp; élévation</a><a class="chip" href="#mouvement">Mouvement</a><a class="chip" href="#boutons">Boutons</a><a class="chip" href="#champs">Champs</a><a class="chip" href="#puces">Puces &amp; badges</a><a class="chip" href="#cartes">Cartes</a><a class="chip" href="#listes">Listes &amp; tables</a><a class="chip" href="#onglets">Onglets</a><a class="chip" href="#modales">Modales</a><a class="chip" href="#toasts">Toasts</a><a class="chip" href="#etats">États vides &amp; chargement</a>
+</div></nav>
+<main class="sg">
+
+<section class="sgs" id="couleurs"><h2>Couleurs</h2><p class="d">Encres pour les surfaces, teal Kaspa pour l'action, or pour l'argent et les gains. Les traits sont en alpha pour rester justes sur toutes les surfaces.</p>
+  <h3 class="sub">Encres</h3><div class="grid" id="sw-ink"></div>
+  <h3 class="sub">Marque (teal du K Kaspa #70C7BA)</h3><div class="grid" id="sw-brand"></div>
+  <h3 class="sub">Or · sémantique</h3><div class="grid" id="sw-sem"></div>
+  <h3 class="sub">Texte (contraste sur --ink-2)</h3>
+  <div class="card card-flat"><p style="color:var(--text-1)">--text-1 · titres et valeurs · 16,8:1</p><p style="color:var(--text-2);margin-top:6px">--text-2 · texte courant secondaire · 8,4:1</p><p style="color:var(--text-3);margin-top:6px">--text-3 · légendes, métadonnées · 5,0:1 (AA)</p></div>
+</section>
+
+<section class="sgs" id="type"><h2>Typographie</h2><p class="d">Pile système (SF Pro / Segoe / Roboto), Inter si installée. Aucun fichier de police téléchargé. Chiffres tabulaires pour tous les montants (<code class="inline">.num</code>).</p>
+  <div class="stack" style="gap:14px">
+    <div style="font-size:var(--fs-hero);font-weight:var(--fw-black);letter-spacing:-.038em;line-height:1">Le poker, sans casino.</div>
+    <div class="tok"><code>--fs-4xl 38</code><span style="font-size:var(--fs-4xl);font-weight:750;letter-spacing:var(--tracking-display)">Titre de page</span></div>
+    <div class="tok"><code>--fs-3xl 30</code><span style="font-size:var(--fs-3xl);font-weight:750;letter-spacing:var(--tracking-display)">Titre de page mobile</span></div>
+    <div class="tok"><code>--fs-2xl 24</code><span style="font-size:var(--fs-2xl);font-weight:750">Section</span></div>
+    <div class="tok"><code>--fs-xl 20</code><span style="font-size:var(--fs-xl);font-weight:750">Titre de modale</span></div>
+    <div class="tok"><code>--fs-lg 17</code><span style="font-size:var(--fs-lg);font-weight:650">Titre de carte, chapeau</span></div>
+    <div class="tok"><code>--fs-base 15</code><span style="font-size:var(--fs-base)">Corps mobile — Chaque table est un coffre sur Kaspa.</span></div>
+    <div class="tok"><code>--fs-md 14</code><span style="font-size:var(--fs-md)">Corps desktop, boutons</span></div>
+    <div class="tok"><code>--fs-sm 13</code><span style="font-size:var(--fs-sm);color:var(--text-2)">Texte secondaire, libellés</span></div>
+    <div class="tok"><code>--fs-xs 12</code><span class="eyebrow">Surtitre en capitales</span></div>
+    <div class="tok"><code>.num</code><span class="num" style="font-size:var(--fs-2xl);font-weight:750">1 234,56 $ · 0,05 / 0,10</span></div>
+    <div class="tok"><code>.mono</code><span class="mono t2">kaspatest:qrg9npqu7lx33uchkyr949n5a84hsxg0dafu3km957</span></div>
+  </div>
+</section>
+
+<section class="sgs" id="espace"><h2>Espacement</h2><p class="d">Grille de 4 px. Marge latérale <code class="inline">--gutter</code> : 16 px mobile, 24 px tablette, 32 px desktop. Cible tactile minimale <code class="inline">--tap</code> 44 px.</p>
+  <div id="spacing"></div>
+</section>
+
+<section class="sgs" id="rayons"><h2>Rayons &amp; élévation</h2>
+  <div class="demo" id="radii"></div>
+  <div class="grid" style="margin-top:20px"><div class="elev" style="box-shadow:var(--e-0)">--e-0</div><div class="elev" style="box-shadow:var(--e-1)">--e-1</div><div class="elev" style="box-shadow:var(--e-2)">--e-2</div><div class="elev" style="box-shadow:var(--e-3)">--e-3</div><div class="elev" style="box-shadow:var(--e-4)">--e-4</div><div class="elev" style="box-shadow:var(--e-brand);background:var(--brand-400);color:var(--brand-ink)">--e-brand</div></div>
+</section>
+
+<section class="sgs" id="mouvement"><h2>Mouvement</h2><p class="d">Survole une ligne. Durées 120 / 200 / 320 / 520 ms ; toutes passent à 0 avec <code class="inline">prefers-reduced-motion</code>.</p>
+  <div class="stack"><div class="motrow tok"><code>--ease-out</code><span class="mot"></span></div><div class="motrow tok"><code>--ease-in-out</code><span class="mot" style="--e:var(--ease-in-out)"></span></div><div class="motrow tok"><code>--ease-spring</code><span class="mot" style="--e:var(--ease-spring)"></span></div></div>
+</section>
+
+<section class="sgs" id="boutons"><h2>Boutons</h2><p class="d"><code class="inline">.btn</code> + variante (<code class="inline">-primary -gold -secondary -outline -ghost -danger</code>) + taille (<code class="inline">-sm -lg -xl</code>). Chargement : <code class="inline">aria-busy="true"</code>.</p>
+  <div class="stack">
+    <div class="demo"><button class="btn btn-primary">Rejoindre la table</button><button class="btn btn-gold">S'inscrire · 5,00 $</button><button class="btn btn-secondary">Lien d'invitation</button><button class="btn btn-outline">Créer une table</button><button class="btn btn-ghost">Annuler</button><button class="btn btn-danger">Quitter</button><button class="btn" disabled>Désactivé</button></div>
+    <div class="demo"><button class="btn btn-primary btn-sm">Petit</button><button class="btn btn-primary">Normal</button><button class="btn btn-primary btn-lg">Grand</button><button class="btn btn-primary btn-xl">Très grand</button><button class="btn btn-primary btn-lg" aria-busy="true">Chargement</button><button class="btn btn-secondary btn-icon" aria-label="Menu"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
+    <div style="max-width:360px"><button class="btn btn-primary btn-lg btn-block">Bouton pleine largeur</button></div>
+    <div class="demo"><a class="link" href="#boutons">Lien d'action ›</a></div>
+  </div>
+</section>
+
+<section class="sgs" id="champs"><h2>Champs</h2>
+  <div class="grid-2">
+    <div class="stack">
+      <div class="field"><label class="label" for="i1">Adresse du destinataire <span class="hint">kaspatest:…</span></label><input class="input" id="i1" placeholder="kaspatest:…"></div>
+      <div class="field"><label class="label" for="i2">Invalide</label><input class="input" id="i2" value="kaspa:faux" aria-invalid="true"><span class="help" style="color:var(--danger)">L'adresse doit commencer par kaspatest:</span></div>
+      <label class="input-group"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg><span class="sr">Rechercher</span><input class="input" placeholder="Rechercher une table"></label>
+      <div class="field"><label class="label" for="i3">Montant</label><div class="input-group"><input class="input amount" id="i3" value="12,50" inputmode="decimal"><span class="addon"><button class="btn btn-sm btn-secondary">Max</button></span></div></div>
+      <div class="field"><label class="label" for="i4">Liste</label><select class="select" id="i4"><option>Mises croissantes</option><option>Plus de joueurs</option></select></div>
+    </div>
+    <div class="stack">
+      <div class="field"><span class="label">Contrôle segmenté</span><div class="seg" id="segdemo"><button class="seg-opt" aria-pressed="false">5<small>KAS</small></button><button class="seg-opt" aria-pressed="true">10<small>KAS</small></button><button class="seg-opt" aria-pressed="false">20<small>KAS</small></button><button class="seg-opt" disabled>50<span class="soon">Bientôt</span></button></div></div>
+      <label class="row" style="justify-content:space-between;min-height:48px"><span>Jeu 4 couleurs</span><span class="switch"><input type="checkbox" checked><span></span></span></label>
+      <label class="row" style="justify-content:space-between;min-height:48px"><span>Sons</span><span class="switch"><input type="checkbox"><span></span></span></label>
+      <div class="field"><span class="label">Curseur</span><input type="range" class="range" value="40"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sgs" id="puces"><h2>Puces &amp; badges</h2>
+  <div class="stack">
+    <div class="chips" id="chipdemo"><button class="chip" aria-pressed="true">Toutes</button><button class="chip" aria-pressed="false">Micro</button><button class="chip" aria-pressed="false">Basses</button><button class="chip" aria-pressed="false">6-max<span class="count">9</span></button></div>
+    <div class="demo"><span class="badge">Neutre</span><span class="badge badge-brand">Covenants</span><span class="badge badge-gold">Démo</span><span class="badge badge-success"><span class="dot dot-live"></span>Inscriptions</span><span class="badge badge-danger">Hyper</span><span class="badge badge-info">En cours</span><span class="badge badge-solid">3</span></div>
+    <div class="demo"><span class="seats"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="seats-n">3/6</span><span class="avatar">NO</span><span class="avatar" style="background:linear-gradient(135deg,#ffe08a,#c48f1f)">PA</span><span class="avatar avatar-lg">J</span></div>
+  </div>
+</section>
+
+<section class="sgs" id="cartes"><h2>Cartes</h2>
+  <div class="grid-2">
+    <div class="card"><div class="card-head"><h3>Carte</h3></div><dl class="kv"><dt>Blindes</dt><dd>0,05 / 0,10 $</dd><dt>Cave</dt><dd>4,00 – 10,00 $</dd><dt class="total">Total</dt><dd class="total">10,00 $</dd></dl></div>
+    <div class="card card-raised"><div class="card-head"><h3>Surélevée</h3></div><div class="stat"><span class="k">Prize pool</span><span class="v gold">30,00 $</span></div></div>
+    <div class="card card-glow"><div class="card-head"><h3>Mise en avant</h3></div><p class="t2" style="font-size:14px">Pour l'élément principal d'un écran.</p></div>
+    <button class="card card-interactive"><b>Interactive</b><p class="t3" style="font-size:13px;margin-top:4px">Toute la carte est cliquable.</p></button>
+  </div>
+  <div class="stack" style="margin-top:16px">
+    <div class="callout"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 16.5v-5M12 8h.01"/></svg><span><b>Info.</b> Ta cave est déposée dans le coffre de la table.</span></div>
+    <div class="callout callout-brand"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.2 7.5 9.5 4.3-1.3 7.5-4.9 7.5-9.5V6z"/></svg><span><b>Confiance.</b> Mises et gains vérifiés par tout le réseau.</span></div>
+    <div class="callout callout-warn"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10.3 4 2.4 17.7A2 2 0 0 0 4.1 20.7h15.8a2 2 0 0 0 1.7-3L13.7 4a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4M12 17h.01"/></svg><span><b>Solde insuffisant.</b> Il faut la cave plus ≈ 0,5 KAS de frais.</span></div>
+    <div class="callout callout-danger"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><span><b>Erreur.</b> Transaction refusée par le nœud.</span></div>
+  </div>
+</section>
+
+<section class="sgs" id="listes"><h2>Listes &amp; tables</h2>
+  <div class="grid-2">
+    <nav class="list"><a class="list-item" href="#listes"><span class="lead">?</span><span class="grow"><span class="title">Aide &amp; FAQ</span><br><span class="meta">Démarrer, argent, équité</span></span><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></a><a class="list-item" href="#listes"><span class="lead">§</span><span class="grow"><span class="title">Mentions &amp; risques</span></span><svg class="ic chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></a></nav>
+    <div class="acc"><details open><summary>Faut-il créer un compte ?<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="acc-body">Non. Un portefeuille est créé dans ton navigateur.</div></details><details><summary>Où est mon argent ?<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></summary><div class="acc-body">Dans le coffre de la table.</div></details></div>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden;margin-top:16px"><div style="overflow-x:auto"><table class="dtable"><thead><tr><th><span>Table</span></th><th aria-sort="ascending"><button>Blindes <svg class="ic ic-sm sort" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 15 6-6 6 6"/></svg></button></th><th><span>Joueurs</span></th><th class="r"><span>Pot moyen</span></th><th></th></tr></thead>
+    <tbody><tr aria-selected="true" tabindex="0"><td class="name"><b>Andromède</b><small>NLHE · 6-max</small></td><td><b>0,01 / 0,02 $</b></td><td><span class="seats"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="seats-n">5/6</span></td><td class="r">0,15 $</td><td><button class="btn btn-sm btn-primary">Jouer</button></td></tr>
+    <tr tabindex="0"><td class="name"><b>Céphée</b><small>NLHE · Heads-up</small></td><td><b>0,05 / 0,10 $</b></td><td><span class="seats"><i class="on"></i><i></i></span><span class="seats-n">1/2</span></td><td class="r t3">—</td><td><button class="btn btn-sm btn-primary">Jouer</button></td></tr></tbody></table></div></div>
+</section>
+
+<section class="sgs" id="onglets"><h2>Onglets</h2>
+  <div class="stack">
+    <div class="tabs" role="tablist" id="tabdemo"><button class="tab" role="tab" aria-selected="true">Cash games <span class="badge">18</span></button><button class="tab" role="tab" aria-selected="false">Sit &amp; Go <span class="badge">7</span></button></div>
+    <div class="utabs" role="tablist" id="utabdemo"><button class="tab" role="tab" aria-selected="true">Déposer</button><button class="tab" role="tab" aria-selected="false">Retirer</button><button class="tab" role="tab" aria-selected="false">kUSDT</button></div>
+  </div>
+</section>
+
+<section class="sgs" id="modales"><h2>Modales &amp; feuilles du bas</h2><p class="d">Une seule structure : feuille du bas sur mobile (poignée, glisser pour fermer), modale centrée dès 640 px. Échap, clic sur le fond, piège du focus.</p>
+  <div class="demo"><button class="btn btn-primary" id="open-modal">Ouvrir la modale</button></div>
+  <div class="overlay" id="m-demo" role="dialog" aria-modal="true" aria-labelledby="m-demo-t"><div class="modal" tabindex="-1"><span class="grab"></span>
+    <div class="modal-head"><div class="grow"><h2 id="m-demo-t">Rejoindre la table</h2><p class="sub">Heads-up · No Limit Hold'em</p></div><button class="btn btn-icon btn-ghost" data-close aria-label="Fermer"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="modal-body"><div class="recap"><dl class="kv"><dt>Cave</dt><dd>10,00 KAS</dd><dt>Blindes</dt><dd>0,10 / 0,20</dd></dl></div></div>
+    <div class="modal-foot"><button class="btn btn-ghost" data-close>Annuler</button><button class="btn btn-primary" data-close>Rejoindre et déposer</button></div></div></div>
+</section>
+
+<section class="sgs" id="toasts"><h2>Toasts</h2><p class="d">En bas sur mobile (au-dessus de la barre d'onglets), en haut à droite sur desktop.</p>
+  <div class="demo"><button class="btn btn-secondary" data-toast="ok">Succès</button><button class="btn btn-secondary" data-toast="info">Info</button><button class="btn btn-secondary" data-toast="err">Erreur</button></div>
+</section>
+
+<section class="sgs" id="etats"><h2>États vides &amp; chargement</h2>
+  <div class="grid-2">
+    <div class="empty"><div class="em-ic"><svg class="ic ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.6" y="5.2" width="10.5" height="15" rx="2" transform="rotate(-10 7.8 12.7)"/><rect x="10.5" y="3.5" width="10.5" height="15" rx="2"/></svg></div><h3>Aucune table en cours</h3><p>Crée une table et envoie le lien à un ami.</p><div class="row"><button class="btn btn-primary">Créer une table</button></div></div>
+    <div class="card stack"><div class="skel skel-line" style="width:40%"></div><div class="skel skel-line" style="width:75%"></div><div class="skel skel-row"></div><div class="skel skel-row"></div></div>
+  </div>
+</section>
+</main>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<script>
+const css = getComputedStyle(document.documentElement), v = n => css.getPropertyValue(n).trim();
+const sw = (id, names) => { document.getElementById(id).innerHTML = names.map(n => `<div class="sw"><i style="background:var(${n})"></i><div><b>${n}</b><code>${v(n)}</code></div></div>`).join(''); };
+sw('sw-ink', ['--ink-0', '--ink-1', '--ink-2', '--ink-3', '--ink-4', '--ink-5', '--line-2', '--line-4']);
+sw('sw-brand', ['--brand-200', '--brand-300', '--brand-400', '--brand-500', '--brand-600', '--brand-700', '--brand-900', '--brand-ink']);
+sw('sw-sem', ['--gold-300', '--gold-400', '--gold-500', '--success', '--danger', '--warning', '--info', '--felt-2']);
+document.getElementById('spacing').innerHTML = ['--s-1', '--s-2', '--s-3', '--s-4', '--s-5', '--s-6', '--s-8', '--s-10', '--s-12', '--s-16', '--s-20'].map(n => `<div class="tok"><code>${n} · ${v(n)}</code><span class="bar" style="width:var(${n})"></span></div>`).join('');
+document.getElementById('radii').innerHTML = ['--r-xs', '--r-sm', '--r-md', '--r-lg', '--r-xl', '--r-2xl', '--r-pill'].map(n => `<div style="text-align:center;font-size:11px;color:var(--text-3)"><div class="rad" style="border-radius:var(${n})"></div><div style="margin-top:6px">${n}</div></div>`).join('');
+const group = (id, attr) => { const bs = [...document.querySelectorAll('#' + id + ' button')]; bs.forEach(b => b.onclick = () => { if (b.disabled) return; bs.forEach(x => x.setAttribute(attr, String(x === b))); }); };
+group('segdemo', 'aria-pressed'); group('tabdemo', 'aria-selected'); group('utabdemo', 'aria-selected');
+document.querySelectorAll('#chipdemo .chip').forEach(c => c.onclick = () => c.setAttribute('aria-pressed', String(c.getAttribute('aria-pressed') !== 'true')));
+const o = document.getElementById('m-demo');
+document.getElementById('open-modal').onclick = () => { o.classList.add('on'); o.querySelector('.modal').focus(); };
+o.addEventListener('click', e => { if (e.target === o || e.target.closest('[data-close]')) o.classList.remove('on'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') o.classList.remove('on'); });
+const ICON = { ok: '<path d="m8.2 12.3 2.6 2.6 5-5.4"/><circle cx="12" cy="12" r="9"/>', info: '<circle cx="12" cy="12" r="9"/><path d="M12 16.5v-5M12 8h.01"/>', err: '<path d="M10.3 4 2.4 17.7A2 2 0 0 0 4.1 20.7h15.8a2 2 0 0 0 1.7-3L13.7 4a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4M12 17h.01"/>' };
+const MSG = { ok: 'Lien d\'invitation copié', info: 'C\'est à toi de jouer', err: 'Envoi impossible : solde insuffisant' };
+document.querySelectorAll('[data-toast]').forEach(b => b.onclick = () => { const k = b.dataset.toast, d = document.createElement('div'); d.className = 'toast' + (k === 'err' ? ' err' : k === 'info' ? ' info' : ''); d.innerHTML = `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">${ICON[k]}</svg><span>${MSG[k]}</span>`; document.getElementById('toasts').append(d); setTimeout(() => { d.classList.add('out'); setTimeout(() => d.remove(), 250); }, 3000); });
+</script>
+</body>
+</html>
