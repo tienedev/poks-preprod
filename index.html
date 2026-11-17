@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poks — Testnet</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%233ee6c1'/><text x='16' y='23' font-size='20' text-anchor='middle' fill='%23052a22'>♠</text></svg>">
+<style>
+:root {
+  --bg: #0b0e13; --bg2: #11161d; --panel: #161c25; --panel2: #1e2631; --line: #2a3441; --line2: #364253;
+  --text: #e8eef5; --muted: #8a97a8; --dim: #5d6a7b;
+  --accent: #3ee6c1; --accent-ink: #052a22; --gold: #f5c451; --red: #f05d5d; --ok: #3fd27f; --blue: #5aa9ff;
+  --felt1: #17805f; --felt2: #0d5a43; --felt3: #08372a; --rail: #1b1f26;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font: 14px/1.45 Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+button { font: inherit; cursor: pointer; border: 0; color: inherit; background: none; }
+input, select { font: inherit; color: var(--text); }
+.num { font-variant-numeric: tabular-nums; }
+.btn { background: var(--panel2); border: 1px solid var(--line2); padding: 9px 16px; border-radius: 10px; font-weight: 600; }
+.btn:hover:not(:disabled) { border-color: var(--muted); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.danger { color: var(--red); border-color: #6b2a2f; background: transparent; }
+.btn.sm { padding: 6px 12px; font-size: 13px; border-radius: 8px; }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+.topbar { height: 60px; display: flex; align-items: center; gap: 14px; padding: 0 20px; background: var(--bg2); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 20; }
+.logo { font-weight: 900; font-size: 20px; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.logo i { width: 26px; height: 26px; border-radius: 7px; background: linear-gradient(135deg, var(--accent), #1a8f7a); display: grid; place-items: center; font-style: normal; color: var(--accent-ink); font-size: 15px; }
+.grow { flex: 1; }
+.pill { font-size: 12px; padding: 4px 10px; border-radius: 99px; border: 1px solid var(--line2); color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+.pill.test { color: var(--gold); border-color: #5c4a17; background: #2b2410; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dim); } .dot.on { background: var(--ok); box-shadow: 0 0 0 3px rgba(63,210,127,.15); }
+.walletchip { display: flex; align-items: center; gap: 10px; padding: 5px 6px 5px 12px; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; }
+.walletchip b { font-size: 15px; }
+.walletchip small { display: block; color: var(--muted); font-size: 11px; }
+main { max-width: 1180px; margin: 0 auto; padding: 22px 16px; }
+.screen { display: none; } .screen.on { display: block; }
+h1 { font-size: 24px; margin: 0 0 6px; } h2 { font-size: 17px; margin: 0 0 12px; }
+.lead { color: var(--muted); margin: 0 0 22px; max-width: 720px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; } @media (max-width: 860px) { .grid2 { grid-template-columns: 1fr; } }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.field label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { padding: 7px 12px; border-radius: 99px; border: 1px solid var(--line2); color: var(--muted); font-size: 13px; font-weight: 600; }
+.chip.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.inp { background: var(--bg); border: 1px solid var(--line2); border-radius: 8px; padding: 9px 10px; width: 100%; }
+.mono { font-family: ui-monospace, Menlo, monospace; font-size: 12px; word-break: break-all; }
+.note { background: var(--bg2); border-left: 3px solid var(--accent); border-radius: 6px; padding: 10px 12px; font-size: 12.5px; color: var(--muted); margin: 12px 0; }
+.warn { border-left-color: var(--gold); }
+.err { border-left-color: var(--red); color: #ffb3b3; }
+.row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.list .it { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); gap: 10px; }
+.spinner { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line2); border-top-color: var(--accent); animation: spin .8s linear infinite; display: inline-block; vertical-align: middle; }
+@keyframes spin { to { transform: rotate(360deg); } }
+/* ---- table ---- */
+.tgrid { display: grid; grid-template-columns: 1fr 340px; gap: 16px; } @media (max-width: 980px) { .tgrid { grid-template-columns: 1fr; } }
+.twrap { position: relative; width: 100%; aspect-ratio: 1.75; max-height: 62vh; margin: 0 auto; }
+.felt { position: absolute; inset: 11% 4%; border-radius: 999px; background: radial-gradient(ellipse at 50% 45%, var(--felt1) 0%, var(--felt2) 55%, var(--felt3) 100%); border: 14px solid var(--rail); box-shadow: 0 0 0 2px #2c333d, inset 0 0 60px rgba(0,0,0,.45), 0 20px 60px rgba(0,0,0,.6); }
+.felt::after { content: "POKS · TESTNET"; position: absolute; left: 50%; top: 70%; transform: translate(-50%,-50%); font-weight: 900; letter-spacing: 6px; color: rgba(255,255,255,.06); font-size: 22px; white-space: nowrap; }
+.center { position: absolute; left: 50%; top: 44%; transform: translate(-50%,-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.potpill { background: rgba(0,0,0,.45); border-radius: 99px; padding: 4px 14px; font-weight: 700; font-size: 14px; }
+.potpill:empty { display: none; }
+.board { display: flex; gap: 6px; }
+.status { min-height: 20px; font-weight: 600; font-size: 13.5px; color: #fff; text-shadow: 0 1px 3px #000; text-align: center; max-width: 360px; }
+.pc { --w: 54px; width: var(--w); height: calc(var(--w) * 1.42); border-radius: 6px; background: #fdfcf8; box-shadow: 0 2px 6px rgba(0,0,0,.45); display: flex; flex-direction: column; padding: 3px 5px; font-weight: 800; position: relative; flex: none; }
+.pc .r { font-size: calc(var(--w) * .40); line-height: 1; } .pc .s { font-size: calc(var(--w) * .36); line-height: 1; } .pc .big { position: absolute; right: 5px; bottom: 2px; font-size: calc(var(--w) * .55); line-height: 1; }
+.pc.red { color: #d42b2b; } .pc.blk { color: #16191e; }
+.pc.back { background: linear-gradient(135deg, #1f3b66, #13284a); border: 2px solid #fdfcf8; padding: 0; }
+.pc.back::before { content: ""; position: absolute; inset: 4px; border-radius: 3px; background: repeating-linear-gradient(45deg, rgba(255,255,255,.08) 0 4px, transparent 4px 8px); }
+.pc.slot { background: rgba(255,255,255,.05); box-shadow: none; border: 1px dashed rgba(255,255,255,.18); }
+.seat { position: absolute; left: 50%; transform: translate(-50%,-50%); display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.seat.opp { top: 10%; } .seat.me { top: 80%; }
+.seat.me .hole { margin-bottom: -14px; z-index: 0; } .seat .plate { z-index: 1; }
+.seat .hole { display: flex; gap: 3px; } .seat.me .hole .pc { --w: 62px; } .seat.opp .hole .pc { --w: 46px; }
+.plate { display: flex; align-items: center; gap: 8px; background: rgba(12,16,22,.94); border: 1px solid var(--line2); border-radius: 12px; padding: 6px 14px 6px 6px; min-width: 170px; box-shadow: 0 4px 14px rgba(0,0,0,.5); position: relative; }
+.seat.acting .plate { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 0 22px rgba(62,230,193,.35); }
+.ava { --t: 100; position: relative; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 900; color: #0a120f; flex: none; }
+.ava::before { content: ""; position: absolute; inset: -4px; border-radius: 50%; background: conic-gradient(var(--ring, var(--accent)) calc(var(--t) * 1%), transparent 0); -webkit-mask: radial-gradient(circle, transparent 22px, #000 23px); mask: radial-gradient(circle, transparent 22px, #000 23px); }
+.seat:not(.acting) .ava::before { display: none; }
+.pname { font-size: 12.5px; color: var(--muted); } .pstack { font-weight: 800; font-size: 15px; }
+.dbtn { position: absolute; right: -10px; top: -10px; width: 22px; height: 22px; border-radius: 50%; background: #fff; color: #111; font-weight: 900; font-size: 11px; display: grid; place-items: center; }
+.handlbl { font-size: 12px; font-weight: 700; color: var(--gold); background: rgba(0,0,0,.55); padding: 2px 10px; border-radius: 99px; }
+.handlbl:empty { display: none; }
+.bet { position: absolute; left: 50%; transform: translateX(-50%); font-weight: 700; font-size: 13px; background: rgba(0,0,0,.4); padding: 2px 10px; border-radius: 99px; }
+.bet:empty { display: none; }
+.bet.opp { top: 29%; } .bet.me { top: 59%; }
+.actbox { margin-top: 12px; }
+.sizing { display: flex; gap: 6px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+.preset { padding: 6px 10px; border-radius: 8px; background: var(--panel2); border: 1px solid var(--line2); font-size: 12px; font-weight: 700; color: var(--muted); }
+.sizing input[type=range] { flex: 1; min-width: 120px; accent-color: var(--accent); }
+.mainacts { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.abtn { padding: 14px 10px; border-radius: 12px; font-weight: 800; font-size: 15px; border: 1px solid; line-height: 1.15; }
+.abtn small { display: block; font-size: 13px; opacity: .9; }
+.abtn.fold { background: #2a1517; border-color: #6b2a2f; color: #ff9c9c; } .abtn.call { background: #10281f; border-color: #1f6b4f; color: #7ff0d0; } .abtn.raise { background: #2e2310; border-color: #8a6420; color: #ffc865; }
+.abtn:disabled { opacity: .3; cursor: not-allowed; }
+.waitbox { color: var(--muted); text-align: center; padding: 18px; }
+.side { display: flex; flex-direction: column; gap: 12px; }
+.tabbar { display: flex; border-bottom: 1px solid var(--line); margin: -6px -6px 8px; }
+.tabbar button { flex: 1; padding: 8px; color: var(--muted); font-weight: 600; font-size: 12.5px; border-bottom: 2px solid transparent; }
+.tabbar button.on { color: var(--text); border-bottom-color: var(--accent); }
+.logbox { max-height: 430px; overflow-y: auto; font-size: 12.5px; }
+.lg { padding: 6px 0; border-bottom: 1px solid var(--line); }
+.lg .h { font-family: ui-monospace, Menlo, monospace; font-size: 10.5px; color: var(--dim); cursor: pointer; }
+.kv { display: grid; grid-template-columns: 1fr auto; gap: 6px 10px; font-size: 13px; } .kv span { color: var(--muted); }
+.mbg { position: fixed; inset: 0; z-index: 50; background: rgba(3,5,8,.72); display: none; align-items: center; justify-content: center; padding: 16px; }
+.mbg.on { display: flex; }
+.modal { width: 100%; max-width: 480px; background: var(--panel); border: 1px solid var(--line2); border-radius: 18px; padding: 22px; }
+.toasts { position: fixed; top: 70px; right: 16px; z-index: 70; display: flex; flex-direction: column; gap: 8px; }
+.toast { background: var(--panel); border: 1px solid var(--line2); border-left: 3px solid var(--accent); border-radius: 10px; padding: 10px 14px; font-size: 13px; max-width: 340px; box-shadow: 0 10px 30px rgba(0,0,0,.5); }
+.toast.err { border-left-color: var(--red); }
+.result { background: rgba(0,0,0,.55); border-radius: 10px; padding: 6px 12px; font-size: 13px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo" id="home"><i>♠</i>POKS</div>
+  <span class="pill test">Testnet · argent fictif</span>
+  <div class="grow"></div>
+  <span class="pill" id="net"><span class="dot" id="netdot"></span><span id="netlbl">Connexion au réseau Kaspa…</span></span>
+  <div class="walletchip" id="wchip"><div><b class="num" id="wbal">–</b><small>KAS de test</small></div><span class="btn sm">Portefeuille</span></div>
+</div>
+<main id="root">
+  <section class="screen on" id="s-home">
+    <h1>Poker heads-up sur Kaspa</h1>
+    <p class="lead">Aucun serveur : la table est un coffre sur la blockchain Kaspa. Les cartes sont mélangées et chiffrées par les deux joueurs, personne ne peut voir les tiennes ni truquer le paquet.</p>
+    <div class="grid2">
+      <div class="card">
+        <h2>Créer une table</h2>
+        <div class="field"><label>Cave (chacun)</label><div class="chips" id="c-buyin"><button class="chip" data-v="5">5 KAS</button><button class="chip on" data-v="10">10 KAS</button><button class="chip" data-v="20">20 KAS</button></div></div>
+        <div class="field"><label>Blindes</label><div class="chips" id="c-blinds"><button class="chip" data-v="0.05/0.1">0,05 / 0,10</button><button class="chip on" data-v="0.1/0.2">0,10 / 0,20</button><button class="chip" data-v="0.25/0.5">0,25 / 0,50</button></div></div>
+        <div class="field"><label>Temps de réflexion</label><div class="chips" id="c-time"><button class="chip" data-v="30">30 s</button><button class="chip on" data-v="60">60 s</button><button class="chip" data-v="120">2 min</button></div></div>
+        <div class="note">Tu déposes ta cave + 3 KAS de réserve pour les frais réseau de la partie (la réserve non utilisée n'est pas encore rendue en preprod).</div>
+        <button class="btn primary" id="b-create">Créer la table</button>
+      </div>
+      <div class="card">
+        <h2>Rejoindre une table</h2>
+        <div class="field"><label>Lien d'invitation</label><input class="inp" id="j-link" placeholder="Colle ici le lien reçu"></div>
+        <button class="btn primary" id="b-join">Rejoindre</button>
+        <h2 style="margin-top:22px">Mes tables</h2>
+        <div class="list" id="mytables"><div style="color:var(--muted)">Aucune table en cours.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="s-table">
+    <div class="row" style="margin-bottom:10px">
+      <button class="btn sm" id="b-back">← Accueil</button>
+      <b id="t-title">Table</b><span class="pill" id="t-hand"></span>
+      <div class="grow"></div>
+      <button class="btn sm" id="b-invite" style="display:none">Copier l'invitation</button>
+      <button class="btn sm danger" id="b-leave">Quitter et encaisser</button>
+    </div>
+    <div class="tgrid">
+      <div>
+        <div class="twrap"><div class="felt"></div>
+          <div class="seat opp" id="seat-opp"><div class="hole" id="h-opp"></div><div class="plate"><div class="ava" style="background:#f5c451">B</div><div><div class="pname" id="n-opp">Adversaire</div><div class="pstack num" id="st-opp">–</div></div><span id="d-opp"></span></div><div class="handlbl" id="l-opp"></div></div>
+          <div class="bet opp num" id="bet-opp"></div>
+          <div class="center"><div class="potpill num" id="pot"></div><div class="board" id="board"></div><div class="status" id="status"></div></div>
+          <div class="bet me num" id="bet-me"></div>
+          <div class="seat me" id="seat-me"><div class="hole" id="h-me"></div><div class="plate"><div class="ava" style="background:#3ee6c1">T</div><div><div class="pname">Toi</div><div class="pstack num" id="st-me">–</div></div><span id="d-me"></span></div><div class="handlbl" id="l-me"></div></div>
+        </div>
+        <div class="card actbox" id="actbox"></div>
+      </div>
+      <aside class="side">
+        <div class="card">
+          <div class="tabbar" id="tabs"><button class="on" data-p="log">Journal Kaspa</button><button data-p="info">Table</button></div>
+          <div id="p-log" class="logbox"></div>
+          <div id="p-info" style="display:none"></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<div class="mbg" id="m-wallet"><div class="modal">
+  <h2>Portefeuille de test</h2>
+  <p style="color:var(--muted);margin-top:0">Une clé créée et gardée dans ce navigateur, pour le réseau de test uniquement (argent fictif).</p>
+  <div class="field"><label>Ton adresse</label><div class="mono" id="w-addr"></div></div>
+  <div class="kv"><span>Solde</span><b class="num" id="w-bal"></b></div>
+  <div class="note">Pour recevoir des KAS de test gratuits : ouvre le <a href="https://faucet-tn10.kaspanet.io/" target="_blank" rel="noopener" style="color:var(--accent)">faucet testnet-10</a> et colle ton adresse.</div>
+  <div class="row"><button class="btn sm" id="w-copy">Copier l'adresse</button><button class="btn sm" id="w-export">Afficher la clé privée</button><button class="btn sm" id="w-import">Importer une clé</button></div>
+  <div class="mono" id="w-priv" style="margin-top:10px;color:var(--gold)"></div>
+  <div class="row" style="justify-content:flex-end;margin-top:16px"><button class="btn" data-close>Fermer</button></div>
+</div></div>
+
+<div class="mbg" id="m-join"><div class="modal">
+  <h2>Rejoindre cette table ?</h2>
+  <div class="kv" id="mj-info"></div>
+  <div class="note">Ta cave est déposée dans le coffre de la table. Tu la récupères (avec tes gains) quand tu quittes la table.</div>
+  <div class="row" style="justify-content:flex-end"><button class="btn" data-close>Annuler</button><button class="btn primary" id="mj-ok">Rejoindre</button></div>
+</div></div>
+
+<div class="toasts" id="toasts"></div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
