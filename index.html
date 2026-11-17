@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0e13">
 <title>Poks — Testnet</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%233ee6c1'/><text x='16' y='23' font-size='20' text-anchor='middle' fill='%23052a22'>♠</text></svg>">
 <style>
@@ -110,6 +111,57 @@ h1 { font-size: 24px; margin: 0 0 6px; } h2 { font-size: 17px; margin: 0 0 12px;
 .toast { background: var(--panel); border: 1px solid var(--line2); border-left: 3px solid var(--accent); border-radius: 10px; padding: 10px 14px; font-size: 13px; max-width: 340px; box-shadow: 0 10px 30px rgba(0,0,0,.5); }
 .toast.err { border-left-color: var(--red); }
 .result { background: rgba(0,0,0,.55); border-radius: 10px; padding: 6px 12px; font-size: 13px; text-align: center; }
+
+/* ================= MOBILE ================= */
+@media (max-width: 700px) {
+  html, body { font-size: 14px; }
+  input, select, .inp { font-size: 16px; }                 /* évite le zoom automatique d'iOS */
+  .topbar { height: auto; min-height: 54px; padding: 8px 10px; gap: 8px; flex-wrap: wrap; }
+  .logo { font-size: 17px; } .logo i { width: 24px; height: 24px; }
+  .pill.test { display: none; }
+  #net { order: 3; width: 100%; justify-content: center; font-size: 11px; padding: 3px 8px; }
+  .walletchip { padding: 4px 4px 4px 10px; gap: 6px; } .walletchip b { font-size: 14px; } .walletchip .btn { padding: 5px 8px; font-size: 12px; }
+  main { padding: 12px 10px 0; }
+  h1 { font-size: 20px; } .lead { font-size: 13px; margin-bottom: 14px; }
+  .card { padding: 14px; border-radius: 12px; }
+  .chip { padding: 8px 12px; }
+  #s-home .btn.primary { width: 100%; padding: 13px; }
+  /* barre de table */
+  #s-table > .row { gap: 6px; } #t-title { font-size: 13px; }
+  #b-leave { padding: 6px 10px; font-size: 12px; }
+  /* table verticale (portrait) */
+  .tgrid { gap: 10px; }
+  .twrap { aspect-ratio: 0.82; max-height: none; width: 100%; }
+  .felt { inset: 13% 2% 15%; border-radius: 140px; border-width: 10px; }
+  .felt::after { font-size: 14px; letter-spacing: 4px; top: 74%; }
+  .seat.opp { top: 8%; } .seat.me { top: 85%; }
+  .seat.opp .hole .pc { --w: 34px; } .seat.me .hole .pc { --w: 52px; }
+  .seat.me .hole { margin-bottom: -10px; }
+  .plate { min-width: 0; padding: 5px 12px 5px 5px; gap: 7px; border-radius: 10px; }
+  .ava { width: 32px; height: 32px; font-size: 13px; }
+  .ava::before { -webkit-mask: radial-gradient(circle, transparent 18px, #000 19px); mask: radial-gradient(circle, transparent 18px, #000 19px); }
+  .pname { font-size: 11px; } .pstack { font-size: 14px; }
+  .center { top: 46%; gap: 8px; width: 94%; }
+  .board { gap: 4px; } .board .pc { --w: 46px; }
+  .pc { padding: 2px 4px; }
+  .status { font-size: 12.5px; max-width: 100%; }
+  .bet.opp { top: 25%; } .bet.me { top: 65%; }
+  .handlbl { font-size: 11px; }
+  /* actions collées en bas de l'écran, au pouce */
+  .actbox { position: sticky; bottom: 0; z-index: 15; margin: 8px -10px 0; border-radius: 14px 14px 0 0; padding: 10px 10px calc(10px + env(safe-area-inset-bottom)); box-shadow: 0 -10px 30px rgba(0,0,0,.6); }
+  .sizing { gap: 5px; } .sizing input[type=range] { width: 100%; flex-basis: 100%; order: 5; height: 28px; }
+  .preset { flex: 1; padding: 8px 4px; }
+  .mainacts { gap: 7px; } .abtn { padding: 14px 4px; font-size: 14px; border-radius: 11px; } .abtn small { font-size: 12px; }
+  .waitbox { padding: 10px; font-size: 13px; }
+  .logbox { max-height: 260px; }
+  .side .card { padding: 10px 12px; }
+  .toasts { left: 10px; right: 10px; top: auto; bottom: 120px; } .toast { max-width: none; }
+  .modal { padding: 18px; border-radius: 16px; } .mbg { padding: 10px; align-items: flex-end; }
+}
+@media (max-width: 380px) {
+  .board .pc { --w: 40px; } .seat.me .hole .pc { --w: 46px; }
+  .abtn { font-size: 13px; }
+}
 </style>
 </head>
 <body>
